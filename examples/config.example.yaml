@@ -1,0 +1,344 @@
+# =============================================================================
+# config.example.yaml — copy to config.yaml and edit for your setup
+# =============================================================================
+#
+# Workflow:
+#   1. python -m robotics_paper_wiki.organise_papers --mode first_run --dry-run
+#   2. Review 90_Metadata/rename_log.csv
+#   3. python -m robotics_paper_wiki.organise_papers --mode first_run
+# =============================================================================
+
+# ---------------------------------------------------------------------------
+# Run behaviour
+# ---------------------------------------------------------------------------
+dry_run: true          # ALWAYS start true; switch to false only after reviewing logs
+mode: "copy"           # "copy" — source PDFs are never touched
+
+overwrite_existing_pdfs:           false   # skip dest PDF if it already exists
+overwrite_existing_notes:          false   # skip note .md if it already exists
+regenerate_existing_summaries:     false   # skip summary .md if it already exists
+
+# ---------------------------------------------------------------------------
+# Paths — update all of these for your machine
+# ---------------------------------------------------------------------------
+raw_data_root:               "/path/to/your/raw/PDFs"
+
+new_papers_inbox:            "/path/to/your/Publications/03_New_Papers_Inbox/To_Process"
+new_papers_processed_archive: "/path/to/your/Publications/03_New_Papers_Inbox/Processed_Originals"
+new_papers_needs_review:     "/path/to/your/Publications/03_New_Papers_Inbox/Needs_Review"
+
+output_root:                 "/path/to/your/Publications"
+pdf_output_root:             "/path/to/your/Publications/01_Renamed_PDFs_By_Research_Theme"
+notes_output_root:           "/path/to/your/Publications/02_Obsidian_Notes"
+metadata_folder:             "/path/to/your/Publications/90_Metadata"
+
+# ---------------------------------------------------------------------------
+# PDF output grouping
+# ---------------------------------------------------------------------------
+pdf_grouping:
+  first_level:  "primary_research_theme"   # top-level sub-folder
+  second_level: "year"                     # nested sub-folder (4-digit year or Unknown_Year)
+
+# ---------------------------------------------------------------------------
+# Renamed filename template
+# Tokens: {year}  {venue}  {kw1}  {kw2}  {kw3}  {first_author}
+# ---------------------------------------------------------------------------
+filename_format: "{year}-{venue}-{kw1}-{kw2}-{kw3}-{first_author}.pdf"
+
+# ---------------------------------------------------------------------------
+# Research themes  (ordered; drives PDF folder and note classification)
+# ---------------------------------------------------------------------------
+research_themes:
+  - Design_and_Fabrication
+  - Multimodal_Perception
+  - Robot_Learning
+  - Human_Robot_Interaction
+
+# ---------------------------------------------------------------------------
+# Applications  (used in metadata and Obsidian notes only — no PDF sub-folders)
+# ---------------------------------------------------------------------------
+applications:
+  - Assistive_Robot
+  - Robotic_Arm_Manipulation
+  - Surgical_Robot
+  - Micro_Nano_Robots
+  - Wearable_Haptic_Device
+  - Soft_Robot
+  - Tactile_Sensing
+  - General_Robotics
+
+# ---------------------------------------------------------------------------
+# Confidence threshold
+# Papers below this score go to 00_Inbox_Review/ and low_confidence_review.csv
+# ---------------------------------------------------------------------------
+confidence:
+  threshold: 0.50
+
+# ---------------------------------------------------------------------------
+# Theme keyword lists
+# Scoring: each keyword hit in title+abstract+filename adds 1 pt;
+#          title hits count double.
+# ---------------------------------------------------------------------------
+theme_keywords:
+  Design_and_Fabrication:
+    description: "Sensor design, device fabrication, hardware platforms, physical construction"
+    keywords:
+      - fabrication
+      - design
+      - manufacturing
+      - synthesis
+      - 3d print
+      - elastomer
+      - inverse design
+      - tuneable
+      - tunable
+      - gel sensor
+      - magictac
+      - microfabrication
+      - rapid fabrication
+      - magnetic functionalization
+      - active microstructure
+      - sensor design
+      - hardware design
+      - open platform
+
+  Multimodal_Perception:
+    description: "Sensing, detection, localisation, depth estimation, tactile perception, multi-sensor fusion"
+    keywords:
+      - perception
+      - localisation
+      - localization
+      - detection
+      - depth estimation
+      - pose estimation
+      - dataset
+      - benchmark
+      - tracking
+      - tactile sensing
+      - tactile sensor
+      - visuotactile
+      - touch sensing
+      - contact sensing
+      - graph neural
+      - tactile saliency
+      - optical tweezer
+      - optical trap
+      - coarse-to-fine
+      - super resolution
+      - image enhancement
+      - physics-informed
+      - microrobot
+      - microrobotics
+      - micromachine
+      - pipette
+
+  Robot_Learning:
+    description: "RL, imitation learning, sim-to-real, diffusion policies, adaptive control"
+    keywords:
+      - reinforcement learning
+      - imitation learning
+      - deep learning
+      - sim-to-real
+      - sim2real
+      - domain adaptation
+      - diffusion policy
+      - diffusion model
+      - behaviour cloning
+      - machine learning
+      - neural network
+      - offline RL
+      - domain-adaptive
+      - progressive learning
+      - one-shot
+      - self-adaptive
+      - adaptive motion
+      - motion scaling
+      - deep reinforcement
+      - vision language action
+      - VLA
+      - autonomous
+
+  Human_Robot_Interaction:
+    description: "Teleoperation, shared control, haptics, VR/AR, human-in-the-loop"
+    keywords:
+      - teleoperation
+      - shared control
+      - human-robot
+      - haptic
+      - haptic feedback
+      - VR
+      - virtual reality
+      - digital twin
+      - interaction interface
+      - workspace analysis
+      - ergonomic
+      - handheld
+      - remote control
+      - supervised
+      - semi-autonomous
+      - surgical gesture
+      - gesture recognition
+      - gesture segmentation
+      - collaborative
+      - neurosurgical
+      - operator
+
+# ---------------------------------------------------------------------------
+# Application keyword lists
+# ---------------------------------------------------------------------------
+application_keywords:
+  Micro_Nano_Robots:
+    keywords:
+      - microrobot
+      - micro-robot
+      - nanorobot
+      - optical tweezer
+      - optical trap
+      - magnetic microrobot
+      - magnetically actuated
+      - micromanipulation
+      - micro-nano
+      - nanoscale
+      - holographic
+
+  Surgical_Robot:
+    keywords:
+      - surgical
+      - minimally invasive
+      - laparoscopic
+      - endoscopic
+      - robot-assisted surgery
+      - surgical robot
+      - neurosurgical
+      - RAMIS
+      - microsurgery
+      - surgical gesture
+      - in vivo
+      - patch-clamp
+
+  Tactile_Sensing:
+    keywords:
+      - tactile
+      - touch sensor
+      - visuotactile
+      - contact sensing
+      - elastomer
+      - GelSight
+      - MagicTac
+      - tactile sensor
+      - tactile saliency
+      - tactile elastomer
+      - tactile control
+      - tactile generation
+
+  Robotic_Arm_Manipulation:
+    keywords:
+      - manipulation
+      - robotic arm
+      - robotic pouring
+      - pouring
+      - robot manipulator
+      - workspace analysis
+      - gripper
+      - contact-rich manipulation
+      - dexterous
+
+  Assistive_Robot:
+    keywords:
+      - assistive
+      - rehabilitation
+      - wearable robot
+      - exoskeleton
+      - prosthetic
+      - assistive technology
+      - human augmentation
+      - handheld
+
+  Wearable_Haptic_Device:
+    keywords:
+      - wearable
+      - haptic device
+      - haptic feedback
+      - wearable haptic
+      - cutaneous
+      - fingertip haptic
+
+  Soft_Robot:
+    keywords:
+      - soft robot
+      - soft actuator
+      - pneumatic
+      - hydrogel
+      - soft body
+      - compliant mechanism
+      - deformable
+
+  General_Robotics:
+    # Catch-all — applied when no other application matches
+    keywords:
+      - robot
+      - robotic
+      - autonomous
+      - control
+      - system
+
+# ---------------------------------------------------------------------------
+# Venue aliases  (canonical short name -> search strings in filename + page text)
+# ---------------------------------------------------------------------------
+venues:
+  ICRA:
+    - "International Conference on Robotics and Automation"
+    - "ICRA"
+  IROS:
+    - "Intelligent Robots and Systems"
+    - "IROS"
+  MARSS:
+    - "MARSS"
+  TASE:
+    - "IEEE Transactions on Automation Science"
+    - "T-ASE"
+    - "TASE"
+  RAL:
+    - "Robotics and Automation Letters"
+    - "RA-L"
+    - "RAL"
+  TRO:
+    - "IEEE Transactions on Robotics"
+    - "T-RO"
+    - "TRO"
+  IJRR:
+    - "International Journal of Robotics Research"
+    - "IJRR"
+  RSS:
+    - "Robotics: Science and Systems"
+    - "RSS"
+  ACS:
+    - "ACS Photonics"
+    - "ACS Nano"
+    - "ACS Applied"
+    - "acsphotonics"
+  Advanced-Science:
+    - "Advanced Science"
+  AIS:
+    - "Advanced Intelligent Systems"
+  Advanced-Optical-Materials:
+    - "Advanced Optical Materials"
+    - "adom"
+  Nature:
+    - "Nature Communications"
+    - "Nature Robotics"
+  Science-Robotics:
+    - "Science Robotics"
+    - "scirobotics"
+  CBS:
+    - "Cyborg and Bionic Systems"
+    - "cbsystems"
+  Communication-Physics:
+    - "Communications Physics"
+    - "Communication Physics"
+  Micromachines:
+    - "Micromachines"
+    - "micromachines"
+  Book:
+    - "Book Chapter"
+    - "book chapter"

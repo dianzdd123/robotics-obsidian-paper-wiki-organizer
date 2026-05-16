@@ -1,0 +1,51 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "robotics-paper-wiki-organizer"
+version = "0.1.0"
+description = "Python + Claude Code workflow for organising robotics research papers into an Obsidian wiki"
+readme = "README.md"
+license = {file = "LICENSE"}
+requires-python = ">=3.10"
+keywords = ["robotics", "obsidian", "papers", "wiki", "research", "pdf", "claude-code"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering",
+    "Topic :: Text Processing :: Markup",
+]
+dependencies = [
+    "PyMuPDF>=1.23.0",
+    "pyyaml>=6.0.0",
+    "tqdm>=4.65.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0.0",
+    "pytest-cov>=4.0.0",
+]
+
+[project.urls]
+Repository = "https://github.com/<your-username>/robotics-obsidian-paper-wiki-organizer"
+Issues     = "https://github.com/<your-username>/robotics-obsidian-paper-wiki-organizer/issues"
+
+[project.scripts]
+paper-wiki = "robotics_paper_wiki.organise_papers:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-dir]
+"" = "src"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-v --tb=short"
