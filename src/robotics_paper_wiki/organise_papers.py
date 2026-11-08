@@ -76,7 +76,10 @@ def load_config(path: str = "config.yaml") -> dict:
 # ---------------------------------------------------------------------------
 def scan_pdfs(source_dir: str) -> list[Path]:
     root = Path(source_dir)
-    pdfs = sorted(root.rglob("*.pdf"))
+    if not root.is_dir():
+        raise NotADirectoryError(f"PDF source directory does not exist: {root}")
+    pdfs = sorted(path for path in root.rglob("*")
+                  if path.is_file() and path.suffix.lower() == ".pdf")
     logger.info("Found %d PDFs in %s", len(pdfs), root)
     return pdfs
 
@@ -186,8 +189,9 @@ def main() -> None:
     )
     parser.add_argument("--config",  default="config.yaml")
     parser.add_argument("--mode",    default="first_run", choices=["first_run", "incremental"])
-    parser.add_argument("--dry-run", action="store_true")
-    parser.add_argument("--run",     action="store_true")
+    execution = parser.add_mutually_exclusive_group()
+    execution.add_argument("--dry-run", action="store_true")
+    execution.add_argument("--run", action="store_true")
     args = parser.parse_args()
 
     config  = load_config(args.config)

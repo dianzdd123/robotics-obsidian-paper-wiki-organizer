@@ -34,8 +34,8 @@ dev = [
 ]
 
 [project.urls]
-Repository = "https://github.com/<your-username>/robotics-obsidian-paper-wiki-organizer"
-Issues     = "https://github.com/<your-username>/robotics-obsidian-paper-wiki-organizer/issues"
+Repository = "https://github.com/dianzdd123/robotics-obsidian-paper-wiki-organizer"
+Issues     = "https://github.com/dianzdd123/robotics-obsidian-paper-wiki-organizer/issues"
 
 [project.scripts]
 paper-wiki = "robotics_paper_wiki.organise_papers:main"

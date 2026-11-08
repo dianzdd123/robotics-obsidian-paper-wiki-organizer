@@ -1,5 +1,19 @@
 # Robotics Obsidian Paper Wiki Organizer
 
+## Start here
+
+
+**Scope:** Python package with local metadata extraction, copy-based import and reviewable dry runs.
+
+| Need | Where to start |
+|---|---|
+| Setup, file map, inputs/outputs and troubleshooting | [Reuse guide](docs/REUSE.md) |
+| Local structural validation | `python scripts/check_repository.py` (Python 3.10+) |
+| Proposed fixes and reproducibility details | [Contributing](CONTRIBUTING.md) |
+
+The structural check does not run experiments or certify hardware, model accuracy or dependency compatibility. Read the existing licence and any separate asset terms before reuse.
+
+
 A Python + Claude Code workflow for organising robotics research papers into a structured Obsidian wiki.
 
 This project helps you take a messy folder of robotics PDFs, copy them safely into a clean publication library, rename them consistently, classify them by research theme/application/year, and generate Obsidian notes that link back to the renamed PDFs.

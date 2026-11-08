@@ -122,3 +122,8 @@ out/
 ehthumbs.db
 Thumbs.db
 $RECYCLE.BIN/
+
+# Local development artefacts and credentials
+.env
+.env.*
+!.env.example
